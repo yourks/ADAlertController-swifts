@@ -26,6 +26,9 @@
 		0FA8E62C7A4A6DA9BB841007B5E16CD4 /* ConstraintMakerFinalizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20E8E16115507F7A00FD8ACA1F640F01 /* ConstraintMakerFinalizable.swift */; };
 		14CBDE97EB6C2A112231B33F298E5E2A /* Pods-ADAlertControllerForSwift_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E8C611F3B1D3C7E61CB83F9D54019D9B /* Pods-ADAlertControllerForSwift_Tests-dummy.m */; };
 		14E9ACC5796C5E35C84DD6659BEB788F /* ConstraintPriorityTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A61FED6F394844240A8E0F5E5EFE5D0 /* ConstraintPriorityTarget.swift */; };
+		18BE071E26A17CA300D297AC /* ADAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BE070226A17CA300D297AC /* ADAlertAction.swift */; };
+		18BE071F26A17CA300D297AC /* ADAlertGroupAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BE070326A17CA300D297AC /* ADAlertGroupAction.swift */; };
+		18BE072026A17CA300D297AC /* ADScrollableGroupAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BE070426A17CA300D297AC /* ADScrollableGroupAction.swift */; };
 		276EE563D9B688173DBBF47DB80D72D8 /* ConstraintLayoutGuideDSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F210B7CF56F0377EF6565EBB1A77C8 /* ConstraintLayoutGuideDSL.swift */; };
 		28400157B63F40AA135BF16780AB4B96 /* SnapKit-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3BA5753E717DF6EA16047E4D7B60DEE4 /* SnapKit-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		35CDFA197D8219EB8DEFC227259A5C03 /* ConstraintMakerRelatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE550B32BBC09E5AE915D985D9B92B37 /* ConstraintMakerRelatable.swift */; };
@@ -109,6 +112,9 @@
 		0B99DCF5CE581128A8635F112AB2654F /* Pods-ADAlertControllerForSwift_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-ADAlertControllerForSwift_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		0C455C61CB7A69559751873D72E9D7D6 /* Pods-ADAlertControllerForSwift_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ADAlertControllerForSwift_Example-dummy.m"; sourceTree = "<group>"; };
 		0D03694CAA40C425678F6137B52F70DB /* ConstraintDescription.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintDescription.swift; path = Source/ConstraintDescription.swift; sourceTree = "<group>"; };
+		18BE070226A17CA300D297AC /* ADAlertAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADAlertAction.swift; sourceTree = "<group>"; };
+		18BE070326A17CA300D297AC /* ADAlertGroupAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADAlertGroupAction.swift; sourceTree = "<group>"; };
+		18BE070426A17CA300D297AC /* ADScrollableGroupAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADScrollableGroupAction.swift; sourceTree = "<group>"; };
 		1AB4B41DE540502CF25FEFAC722375B0 /* Pods_ADAlertControllerForSwift_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ADAlertControllerForSwift_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		20113ABFC7B260BA80D505FC58805084 /* Pods-ADAlertControllerForSwift_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ADAlertControllerForSwift_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		20E8E16115507F7A00FD8ACA1F640F01 /* ConstraintMakerFinalizable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMakerFinalizable.swift; path = Source/ConstraintMakerFinalizable.swift; sourceTree = "<group>"; };
@@ -231,9 +237,29 @@
 			path = "Example/Pods/Target Support Files/ADAlertControllerForSwift";
 			sourceTree = "<group>";
 		};
+		18BE06E126A17CA300D297AC /* ADAlertControllerKit */ = {
+			isa = PBXGroup;
+			children = (
+				18BE070126A17CA300D297AC /* ADAlertAction */,
+			);
+			name = ADAlertControllerKit;
+			path = ADAlertControllerForSwift/Classes/ADAlertControllerKit;
+			sourceTree = "<group>";
+		};
+		18BE070126A17CA300D297AC /* ADAlertAction */ = {
+			isa = PBXGroup;
+			children = (
+				18BE070226A17CA300D297AC /* ADAlertAction.swift */,
+				18BE070326A17CA300D297AC /* ADAlertGroupAction.swift */,
+				18BE070426A17CA300D297AC /* ADScrollableGroupAction.swift */,
+			);
+			path = ADAlertAction;
+			sourceTree = "<group>";
+		};
 		351EF0E04B1F676976DC560F3CE6B295 /* ADAlertControllerForSwift */ = {
 			isa = PBXGroup;
 			children = (
+				18BE06E126A17CA300D297AC /* ADAlertControllerKit */,
 				EA2459D2141F9E023E9DEDFC3F771424 /* ReplaceMe.swift */,
 				875DADC126BAB9015D6E93E2A45643FD /* Pod */,
 				0315E411CE757AB2472685EFA5FA3D57 /* Support Files */,
@@ -661,8 +687,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18BE071E26A17CA300D297AC /* ADAlertAction.swift in Sources */,
+				18BE072026A17CA300D297AC /* ADScrollableGroupAction.swift in Sources */,
 				5EC8997AAA96557DDFD59DCE2D763F4C /* ADAlertControllerForSwift-dummy.m in Sources */,
 				04BCF0BF9C23A5C3CEF3671CE107D223 /* ReplaceMe.swift in Sources */,
+				18BE071F26A17CA300D297AC /* ADAlertGroupAction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
