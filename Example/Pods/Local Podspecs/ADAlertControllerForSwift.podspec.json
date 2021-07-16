@@ -18,5 +18,10 @@
   "platforms": {
     "ios": "9.0"
   },
-  "source_files": "ADAlertControllerForSwift/Classes/**/*"
+  "source_files": "ADAlertControllerForSwift/Classes/**/*",
+  "dependencies": {
+    "SnapKit": [
+
+    ]
+  }
 }
