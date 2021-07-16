@@ -1,0 +1,6 @@
+framework module Pods_ADAlertControllerForSwift_Example {
+  umbrella header "Pods-ADAlertControllerForSwift_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

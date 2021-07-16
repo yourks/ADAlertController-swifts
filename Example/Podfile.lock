@@ -1,0 +1,16 @@
+PODS:
+  - ADAlertControllerForSwift (0.1.0)
+
+DEPENDENCIES:
+  - ADAlertControllerForSwift (from `../`)
+
+EXTERNAL SOURCES:
+  ADAlertControllerForSwift:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  ADAlertControllerForSwift: dd69546f4c2f0509a131da3b4f8f913a3d11805e
+
+PODFILE CHECKSUM: fbb9160948ceb7d5dab270b2900dbdc285e66258
+
+COCOAPODS: 1.10.1
