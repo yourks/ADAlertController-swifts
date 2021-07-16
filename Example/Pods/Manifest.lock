@@ -1,5 +1,6 @@
 PODS:
-  - ADAlertControllerForSwift (0.1.0)
+  - ADAlertControllerForSwift (0.1.0):
+    - SnapKit
   - SnapKit (4.2.0)
   - SwiftLint (0.43.1)
 
@@ -18,10 +19,10 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  ADAlertControllerForSwift: dd69546f4c2f0509a131da3b4f8f913a3d11805e
+  ADAlertControllerForSwift: f82f5bdc30050564adbbe894910fedb9c5af428c
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
 
-PODFILE CHECKSUM: 2e1fdabf4eb227691a59fbe29bcde3b595a0f323
+PODFILE CHECKSUM: 167615838203a30b48988de376f9cdd6f74754eb
 
 COCOAPODS: 1.10.1
