@@ -8,7 +8,7 @@
 import UIKit
 
 // 这里声明代理方法不对
-protocol ADGuidesAlertViewDelegate: AnyObject {
+public protocol ADGuidesAlertViewDelegate: AnyObject {
     func advertView(_ view: ADGuidesAlertView, didSelectItemAt index: Int)
 }
 
@@ -21,7 +21,7 @@ xcode中快速注释的方法:
 
  */
 
-class ADGuidesAlertView: UIView, UIScrollViewDelegate {
+public class ADGuidesAlertView: UIView, UIScrollViewDelegate {
 
     // MARK: - propert/public
     /**
