@@ -171,7 +171,7 @@ class ADActionSheetView: UIView, ADAlertControllerViewProtocol {
             
             separatorView?.isHidden = false
             
-            actionSheetCancelAction?.button?.backgroundColor = UIColor.white
+            actionSheetCancelAction?.view.backgroundColor = UIColor.white
 
             let actionButtonContainerViewHeight = 40.0
             bottomactionButtonStackView?.axis = NSLayoutConstraint.Axis.vertical
@@ -186,8 +186,8 @@ class ADActionSheetView: UIView, ADAlertControllerViewProtocol {
             
             bottomView?.layoutIfNeeded()
 
-            actionSheetCancelAction?.button?.setContentCompressionResistancePriority(UILayoutPriority.required, for: NSLayoutConstraint.Axis.vertical)
-            bottomactionButtonStackView!.addArrangedSubview(actionSheetCancelAction!.button!)
+            actionSheetCancelAction?.view.setContentCompressionResistancePriority(UILayoutPriority.required, for: NSLayoutConstraint.Axis.vertical)
+            bottomactionButtonStackView!.addArrangedSubview(actionSheetCancelAction!.view)
         }
     }
 

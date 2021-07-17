@@ -7,46 +7,24 @@
 
 import UIKit
 
-class ADAlertActionConfiguration: NSObject {
+/// 警告框按钮(AlertAction)的配置信息
+public class ADAlertActionConfiguration {
     
-    /**
-     alertAction 显示的标题字体,默认为[UIFont preferredFontForTextStyle:UIFontTextStyleBody]
-     */
-    public var titleFont: UIFont?
+    ///  alertAction 显示的标题字体,默认为 UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
+    public var titleFont: UIFont = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
 
-    /**
-      alertAction 显示的标题颜色,默认为[UIColor darkGrayColor],若为ADActionStyleDestructive,默认为[UIColor redColor]
-     */
-    public var titleColor: UIColor?
+    ///  alertAction 显示的标题颜色,默认为UIColor.darkGray
+    public var titleColor: UIColor = UIColor.darkGray
     
-    /**
-      alertAction 不可用时的标题颜色,默认为[UIColor grayColor]的 0.6 透明度颜色,若为ADActionStyleDestructive,默认为[UIColor redColor]
-     */
-    public var disabledTitleColor: UIColor?
-
-    /**
-     根据alertview 类型,生成不同配置对象
-
-     @param preferredStyle alertview类型
-     @return 默认配置对象
-     */
-    public static func defaultConfigurationWithActionStyle(style: ADActionStyle) -> ADAlertActionConfiguration {
-        let config: ADAlertActionConfiguration = ADAlertActionConfiguration()
-        switch style {
-        case .destructive:
-            config.titleColor = UIColor.red
-            config.disabledTitleColor = UIColor.red
-        default:
-            break
+    ///  alertAction 不可用时的标题颜色,默认为UIColor.gray.withAlphaComponent(0.6)
+    public var disabledTitleColor: UIColor = UIColor.gray.withAlphaComponent(0.6)
+    
+    /// 构造器方法
+    /// - Parameter style: 如果为destructive类型,按钮颜色和禁用按钮颜色为UIColor.red
+    public init(style: ADActionStyle) {
+        if style == .destructive {
+            self.titleColor = UIColor.red
+            self.disabledTitleColor = UIColor.red
         }
-        return config
-    }
-    
-    // MARK: - 初始化方法
-    private override init() {
-        titleFont = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
-        titleColor = UIColor.darkGray
-        disabledTitleColor = UIColor.gray.withAlphaComponent(0.6)
-        super.init()
     }
 }

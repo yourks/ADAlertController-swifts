@@ -27,7 +27,7 @@ class AlertViewStyleTransition: NSObject, UIViewControllerAnimatedTransitioning 
     
     // MARK: - func/internal
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return viewControllerTransitionDuration
+        return kADAlertControllerTransitionDuration
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {

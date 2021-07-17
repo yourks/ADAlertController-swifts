@@ -73,7 +73,6 @@
 		A7640E30492DCEA7BB0A2B8C5D7CDE26 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BA85F3D7C8DB385CE531CD6CB85D041 /* SnapKit.framework */; };
 		A7A532BC4EDAC46A0677BF7E5411575A /* ADAlertControllerPriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A2194BFC9C1C6E979A33A1C6B54C66 /* ADAlertControllerPriorityQueue.swift */; };
 		A7B6513A9266DCCF06621212D8AECA8B /* UIViewController+ADViewControllerExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB4DACF38624697B80AB0D38B8939F2 /* UIViewController+ADViewControllerExt.swift */; };
-		A8C796FC8AB026C378BD4F5C4E3F4B26 /* ReplaceMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C515806FCB0E3217EF44E29974BA09 /* ReplaceMe.swift */; };
 		A9100C11C049B0ED7324743D9C0BE3A1 /* ConstraintInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3399686760901632E0EBE32626CD839 /* ConstraintInsets.swift */; };
 		ADD0B6A7F481FCD36FFE0D34B7372A66 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6688FE66950239FA4E48412FBB68E22 /* Foundation.framework */; };
 		B0D0B6CAD21CA005331874DAD98D6C00 /* ConstraintLayoutGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB5E59ECAC03047F9A628BC5D53BAD /* ConstraintLayoutGuide.swift */; };
@@ -92,6 +91,7 @@
 		E6D4F084621323BF60A61A5EF3BD989B /* ConstraintMakerEditable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B77C6A84086FE52BA933E2EAF72975 /* ConstraintMakerEditable.swift */; };
 		F51BBE8201231DAE21BEDE67C915EC02 /* ADAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57903D86E387C6BF78AE660ACB9E695C /* ADAlertController.swift */; };
 		F5EEAA26E496BB0D62843B23A192E236 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6688FE66950239FA4E48412FBB68E22 /* Foundation.framework */; };
+		F64F8FD926A2C082002D1469 /* ADAlertController+PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64F8FD826A2C082002D1469 /* ADAlertController+PriorityQueue.swift */; };
 		FADBB412C18C8CB8A10E091A6606C78C /* ADAlertGroupAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63F9644F8C80A91680F86FD861C940D5 /* ADAlertGroupAction.swift */; };
 		FE611B54574BF6B1612539BDFE852FEE /* ADAlertTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3190771C380737508EC2AE53261FDA39 /* ADAlertTitleLabel.swift */; };
 /* End PBXBuildFile section */
@@ -225,7 +225,6 @@
 		D26460F2921CBEEBF9F5D770743D4226 /* Pods-ADAlertControllerForSwift_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ADAlertControllerForSwift_Tests-Info.plist"; sourceTree = "<group>"; };
 		D3AD1E0919299DC6A898FA0E2488564B /* Pods-ADAlertControllerForSwift_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-ADAlertControllerForSwift_Example.modulemap"; sourceTree = "<group>"; };
 		D5EBF5773C74FCF5ABF49C83DDA0D5FE /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		D8C515806FCB0E3217EF44E29974BA09 /* ReplaceMe.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReplaceMe.swift; path = ADAlertControllerForSwift/Classes/ReplaceMe.swift; sourceTree = "<group>"; };
 		DAB4DACF38624697B80AB0D38B8939F2 /* UIViewController+ADViewControllerExt.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIViewController+ADViewControllerExt.swift"; sourceTree = "<group>"; };
 		E1BB76E281FB339D168310838A68935B /* ADAlertControllerForSwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = ADAlertControllerForSwift.modulemap; sourceTree = "<group>"; };
 		E6D5205EA5E9C587D40BAB004216BF02 /* Pods-ADAlertControllerForSwift_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-ADAlertControllerForSwift_Tests.modulemap"; sourceTree = "<group>"; };
@@ -235,6 +234,7 @@
 		EFCD0B53EFC0F61F6F031155B5570AB9 /* UIImage+ADButtonExt.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIImage+ADButtonExt.swift"; sourceTree = "<group>"; };
 		F1906210D39894F73EC3BDD976B4074F /* Pods-ADAlertControllerForSwift_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ADAlertControllerForSwift_Example-umbrella.h"; sourceTree = "<group>"; };
 		F61566D03830166A79D86DFED169BDE7 /* ConstraintMakerPriortizable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMakerPriortizable.swift; path = Source/ConstraintMakerPriortizable.swift; sourceTree = "<group>"; };
+		F64F8FD826A2C082002D1469 /* ADAlertController+PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ADAlertController+PriorityQueue.swift"; sourceTree = "<group>"; };
 		F96BE007CB17301DE90BAF0B821D63BD /* ADAlertControllerViewProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ADAlertControllerViewProtocol.swift; sourceTree = "<group>"; };
 		FE550B32BBC09E5AE915D985D9B92B37 /* ConstraintMakerRelatable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintMakerRelatable.swift; path = Source/ConstraintMakerRelatable.swift; sourceTree = "<group>"; };
 		FEBC209151EFD15C5105B3610C6C4B23 /* Pods-ADAlertControllerForSwift_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ADAlertControllerForSwift_Tests-umbrella.h"; sourceTree = "<group>"; };
@@ -336,7 +336,6 @@
 		49985938E5D46511586DFF0362C223AD /* ADAlertControllerForSwift */ = {
 			isa = PBXGroup;
 			children = (
-				D8C515806FCB0E3217EF44E29974BA09 /* ReplaceMe.swift */,
 				754441F7287DD8CB8D6E821FE95537B5 /* ADAlertControllerKit */,
 				790B85A84734707491B8FA1D875064A0 /* Pod */,
 				222269453E973CB29EF44FC3174BE41F /* Support Files */,
@@ -397,6 +396,7 @@
 			children = (
 				B49D9AD6BB7A39C1E87A4214023FF244 /* ADAlertActionConfiguration.swift */,
 				57903D86E387C6BF78AE660ACB9E695C /* ADAlertController.swift */,
+				F64F8FD826A2C082002D1469 /* ADAlertController+PriorityQueue.swift */,
 				6B1C4E043326B13B8823FBDE0444D802 /* ADAlertControllerConfiguration.swift */,
 				B5F21724B3A5E7F8549FA4BA69D8C837 /* ADAlertControllerConst.swift */,
 				68A2194BFC9C1C6E979A33A1C6B54C66 /* ADAlertControllerPriorityQueue.swift */,
@@ -822,12 +822,12 @@
 				FE611B54574BF6B1612539BDFE852FEE /* ADAlertTitleLabel.swift in Sources */,
 				6658CCFE6B61859409C4A60DE0443761 /* ADAlertTransitioningDelegate.swift in Sources */,
 				050911EE341AFF36A2533047128DCC98 /* ADAlertView.swift in Sources */,
+				F64F8FD926A2C082002D1469 /* ADAlertController+PriorityQueue.swift in Sources */,
 				80C214DA4379325F1148B1C1C2DB9065 /* ADAlertViewConst.swift in Sources */,
 				C9564909FD10438091EA5FC6D8559345 /* ADAlertWindow.swift in Sources */,
 				CB112F26F14C273AB9EF5412D4067A1E /* ADScrollableGroupAction.swift in Sources */,
 				5F952B630DCEBE505F827144584F0738 /* AlertStyleTransitionBehaviorProtocol.swift in Sources */,
 				7276D78D9320F98BCB3C3C0F10980A11 /* AlertViewStyleTransition.swift in Sources */,
-				A8C796FC8AB026C378BD4F5C4E3F4B26 /* ReplaceMe.swift in Sources */,
 				89A04BEA4678ED7E35CC753FA992E653 /* UIImage+ADButtonExt.swift in Sources */,
 				078CF67717D621F0F0C20D22F954276C /* UIImage+ADImageExt.swift in Sources */,
 				A7B6513A9266DCCF06621212D8AECA8B /* UIViewController+ADViewControllerExt.swift in Sources */,

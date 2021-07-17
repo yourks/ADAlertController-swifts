@@ -7,9 +7,9 @@
 
 import UIKit
 
-typealias AlertControllerDidDismissAction = (_ alertController: ADAlertController) -> Void
+public typealias AlertControllerDidDismissAction = (_ alertController: ADAlertController) -> Void
 
-typealias ConfigurationTextFieldHandlerBlock = (_ textField: UITextField) -> Void
+public typealias ConfigurationTextFieldHandlerBlock = (_ textField: UITextField) -> Void
 
 fileprivate extension ADAlertControllerConfiguration {
     var mainView: ADAlertControllerViewProtocol {
@@ -22,7 +22,7 @@ fileprivate extension ADAlertControllerConfiguration {
     }
 }
 
-class ADAlertController: UIViewController, AlertStyleTransitionBehaviorProtocol {
+public final class ADAlertController: UIViewController, AlertStyleTransitionBehaviorProtocol {
 
     // MARK: - propert/public
         
@@ -63,12 +63,12 @@ class ADAlertController: UIViewController, AlertStyleTransitionBehaviorProtocol 
     public var contentViewHeight: CGFloat?
 
     // ADAlertControllerViewProtocol ADAlertViewSheetStyleTransition需要
-    public var mainView: ADAlertControllerViewProtocol?
+    var mainView: ADAlertControllerViewProtocol?
 
     
     // MARK: - propert/private
     // ADAlertWindow
-    private var alertWindow: ADAlertWindow?
+    private(set) var alertWindow: ADAlertWindow?
 
     // panGestureRecognizer
     private var panGestureRecognizer: UIPanGestureRecognizer?
@@ -104,7 +104,11 @@ class ADAlertController: UIViewController, AlertStyleTransitionBehaviorProtocol 
     // MARK: - propert/ADAlertViewAlertStyleTransitionProtocol
     var moveoutScreen: Bool = false
 
-    // MARK: - init
+    // MARK: - life cycle
+    deinit {
+        print("\(self) deinit ")
+    }
+    
     private override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -114,9 +118,8 @@ class ADAlertController: UIViewController, AlertStyleTransitionBehaviorProtocol 
         super.init(coder: coder)
     }
 
-
     // 自定义
-    convenience init(configuration: ADAlertControllerConfiguration?, title: String?, message: String?, actions: [ADAlertAction]?) {
+    public convenience init(configuration: ADAlertControllerConfiguration?, title: String?, message: String?, actions: [ADAlertAction]?) {
         
         self.init(nibName: nil, bundle: nil)
         
@@ -147,7 +150,7 @@ class ADAlertController: UIViewController, AlertStyleTransitionBehaviorProtocol 
     }
     
     // MARK: - lifecycle
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
          
         self.mainView = configuration?.mainView
@@ -160,15 +163,14 @@ class ADAlertController: UIViewController, AlertStyleTransitionBehaviorProtocol 
         self.mainView!.contentViewHeight = contentViewHeight
         self.mainView!.contentView = contentView
 
-        if self.actions?.count ?? 0 > 0 {
-            for action: ADAlertAction in self.actions! {
+        if let actions = self.actions {
+            for action in actions {
                 if let groupAction = action as? ADAlertGroupAction {
                     groupAction.separatorColor = self.configuration?.separatorColor
                     groupAction.showsSeparators = self.configuration?.showsSeparators
                 }
-                let view: UIView  = action.loadView()
-                buttons.append(view)
-                action.viewController = self
+                buttons.append(action.view)
+                action._alertController = self
             }
         }
         
@@ -203,7 +205,7 @@ class ADAlertController: UIViewController, AlertStyleTransitionBehaviorProtocol 
      ⚠️目前暂未适配键盘遮挡问题!!!
      @param configurationHandler 用于配置textfield的block。该block将textfield对象作为参数，并且可以在显示之前修改textfield的属性。
      */
-    func addTextFieldWithConfigurationHandler(alertActionHandler: ConfigurationTextFieldHandlerBlock) {
+    public func addTextFieldWithConfigurationHandler(alertActionHandler: ConfigurationTextFieldHandlerBlock) {
         let textField: UITextField = UITextField(frame: CGRect.zero)
         textField.borderStyle = UITextField.BorderStyle.roundedRect
            
@@ -217,9 +219,9 @@ class ADAlertController: UIViewController, AlertStyleTransitionBehaviorProtocol 
 
      @param cancelAction 取消按钮动作类型
      */
-    func addActionSheetCancelAction(cancelAction: ADAlertAction) {
+    public func addActionSheetCancelAction(cancelAction: ADAlertAction) {
         self.actionSheetCancelAction = cancelAction
-        self.actionSheetCancelAction?.viewController = self
+        self.actionSheetCancelAction?._alertController = self
         if let groupAction = cancelAction as? ADAlertGroupAction {
             groupAction.separatorColor = self.configuration?.separatorColor
             groupAction.showsSeparators = self.configuration?.showsSeparators
@@ -289,7 +291,7 @@ extension ADAlertController: UIGestureRecognizerDelegate {
     }
     
     // MARK: - UIGestureRecognizerDelegate
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if touch.view?.isKind(of: UIButton.classForCoder()) == true {
             return false
         }
@@ -298,87 +300,35 @@ extension ADAlertController: UIGestureRecognizerDelegate {
     
 }
 
-// MARK: - extension : ADAlertControllerPriorityQueueProtocol
-extension ADAlertController: ADAlertControllerPriorityQueueProtocol {
+extension ADAlertController: ADAlertControllerBaseProtocol {
     
-    private struct AssociatedKeys {
-        static var alertPriority: Void?
-        static var autoHidenWhenInsertSamePriority: Void?
-        static var targetViewController: Void?
-        static var hidenWhenTargetViewControllerDisappear: Void?
-    }
-        
-    var alertPriority: ADAlertPriority {
-        get {
-            let rawValue = objc_getAssociatedObject(self, &AssociatedKeys.alertPriority) as? Int
-            return ADAlertPriority(rawValue: rawValue ?? 0) ?? .ADAlertPriorityDefault
-        }
-        set {
-            objc_setAssociatedObject(self, &AssociatedKeys.alertPriority, newValue.rawValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-    
-    var autoHidenWhenInsertSamePriority: Bool {
-        get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.autoHidenWhenInsertSamePriority) as? Bool ?? false
-        }
-        set {
-            objc_setAssociatedObject(self, &AssociatedKeys.autoHidenWhenInsertSamePriority, newValue, .OBJC_ASSOCIATION_ASSIGN)
-        }
-    }
-    
-    var targetViewController: UIViewController? {
-        get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.targetViewController) as? UIViewController
-        }
-        set {
-            objc_setAssociatedObject(self, &AssociatedKeys.targetViewController, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-    
-    var hidenWhenTargetViewControllerDisappear: Bool {
-        get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.hidenWhenTargetViewControllerDisappear) as? Bool ?? false
-        }
-        set {
-            objc_setAssociatedObject(self, &AssociatedKeys.hidenWhenTargetViewControllerDisappear, newValue, .OBJC_ASSOCIATION_ASSIGN)
-        }
-    }
-
-    func enqueue() {
-        
-    }
-    
-    func cleanQueueAllObject() {
-        
-    }
-    
-    func show() {
+    public func show() {
         let alertWindow =  ADAlertWindow.window()
         self.alertWindow = alertWindow
         alertWindow.presentViewController(viewController: self) {}
     }
     
-    func hiden() {
+    public func hiden() {
         ADAlertController.hidenAlertVC(viewController: self)
     }
-    
-    
+}
+
+extension ADAlertController {
     // MARK: - static和class都能指定该方法为类方法
-    static func hidenAlertVC(viewController: ADAlertController) {
-        viewController.dismiss(animated: true, completion: nil)
+    static func hidenAlertVC(viewController: UIViewController?) {
+        viewController?.dismiss(animated: true, completion: nil)
     }
 
     func clearUp() {
         self.alertWindow?.isHidden = true
         self.alertWindow?.cleanUpWithViewController()
-        if self.didDismissBlock != nil { self.didDismissBlock!(self)}
+        self.didDismissBlock?(self)
     }
 
-    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+    public override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         if self.presentationController != nil {
             super.dismiss(animated: flag) {
-                if completion != nil {completion!()}
+                completion?()
                 self.clearUp()
             }
         } else {

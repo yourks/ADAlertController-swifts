@@ -9,7 +9,7 @@ import UIKit
 
 @objc extension ADAlertController: UIViewControllerTransitioningDelegate {
     
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+    public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         
         let presentationController: ADAlertControllerPresentationController = ADAlertControllerPresentationController(presentedViewController: presented, presenting: presenting)
         
@@ -20,7 +20,7 @@ import UIKit
         return presentationController
     }
     
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         guard let style = self.configuration?.preferredStyle else { return nil }
         switch style {
         case .alert:
@@ -30,7 +30,7 @@ import UIKit
         }
     }
 
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         guard let style = self.configuration?.preferredStyle else { return nil }
         switch style {
         case .alert:

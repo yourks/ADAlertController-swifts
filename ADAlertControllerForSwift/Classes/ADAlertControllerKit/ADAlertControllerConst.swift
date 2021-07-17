@@ -22,7 +22,7 @@ enum ADAlertTransitionStyle {
 }
 
 /// 警告框类型
-enum ADAlertControllerStyle {
+public enum ADAlertControllerStyle {
     /// alertview
     case alert
     /// 与 UIKit 的 actionSheet 类型类似,保持底部,左右边距为 8
@@ -32,7 +32,7 @@ enum ADAlertControllerStyle {
 }
 
 /// 按钮类型
-enum ADActionStyle {
+public enum ADActionStyle {
     /// 默认
     case `default`
     /// 一般

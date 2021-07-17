@@ -7,37 +7,24 @@
 
 import UIKit
 
-class ADScrollableGroupAction: ADAlertGroupAction {
-
+/// 可滑动的GroupAction
+public class ADScrollableGroupAction: ADAlertGroupAction {
     
-    // MARK: - proprety/private
+    public let actionWidth: CGFloat
     
-    // actionWidth
-    private var actionWidth: CGFloat?
+    private var actionButtonStackView: UIStackView?
 
-    // MARK: - func init
-    
-    required override init() {
-        super.init()
-    }
-
-    static func scrollActionWithActions(actions: [ADAlertAction]) -> ADScrollableGroupAction? {
-        
-        let action: ADScrollableGroupAction = ADScrollableGroupAction()
-        
-        action.actionWidth = 50+30
-
-        action.actions = actions
-
-        return action
+    // MARK: - life cycle
+    public init(actions: [ADAlertAction], actionWidth: CGFloat = 80) throws {
+        self.actionWidth = actionWidth
+        try super.init(actions: actions)
     }
     
+}
+
+extension ADScrollableGroupAction {
     
     override func loadView() -> UIView {
-//        UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
-//        scrollView.translatesAutoresizingMaskIntoConstraints = NO;
-//        scrollView.showsVerticalScrollIndicator = NO;
-//        scrollView.showsHorizontalScrollIndicator = NO;
 
         let view: UIView = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -56,7 +43,7 @@ class ADScrollableGroupAction: ADAlertGroupAction {
         self.actionButtonStackView?.setContentCompressionResistancePriority(UILayoutPriority.required, for: NSLayoutConstraint.Axis.vertical)
         self.actionButtonStackView?.spacing = 30.0
         
-        let width: CGFloat = CGFloat(self.actions!.count) * actionWidth!
+        let width: CGFloat = CGFloat(self.actions.count) * actionWidth
         scroll.addSubview(self.actionButtonStackView!)
         self.actionButtonStackView?.snp.makeConstraints({ (constraintMaker) in
             constraintMaker.left.top.bottom.equalToSuperview()
@@ -71,7 +58,7 @@ class ADScrollableGroupAction: ADAlertGroupAction {
         actionButtonStackView?.distribution = UIStackView.Distribution.fillEqually
         self.actionButtonStackView?.layoutIfNeeded()
 
-        for action: ADAlertAction in self.actions! {
+        for action: ADAlertAction in self.actions {
             self.actionButtonStackView!.addArrangedSubview(action.loadView())
         }
 

@@ -7,72 +7,58 @@
 
 import UIKit
 
-class ADAlertGroupAction: ADAlertAction {
+public enum ADGroupActionError: Error {
+    case actionCountTooSmall
+    case errorInitMethod
+    
+}
+
+/// 可将多个 AlertAction 当做一个AlertAction 来处理
+public class ADAlertGroupAction: ADAlertAction {
 
     // MARK: - proprety/pubilc
     
-    // 分割线颜色
+    /// 分割线颜色
     public var separatorColor: UIColor?
-    // 分割线是否显示
+    /// 分割线是否显示
     public var showsSeparators: Bool?
-
-    // MARK: - proprety/private
     
-    // Array ADAlertAction
-    var actions: [ADAlertAction]?
+    public let actions: [ADAlertAction]
     
-    // UIStackView
-    var actionButtonStackView: UIStackView?
+    private var actionButtonStackView: UIStackView?
 
-    // 重写viewController
-    internal override var viewController: UIViewController? {
+    override var _alertController: UIViewController? {
         didSet {
-            for action in self.actions! {
-                action.viewController = viewController
+            for action in self.actions {
+                action._alertController = _alertController
             }
         }
     }
     
-    // MARK: - func init
-    override init() {
+    // MARK: - life cycle
+    public init(actions: [ADAlertAction], showsSeparators: Bool = false, separatorColor: UIColor? = nil) throws {
+                
+        guard !actions.isEmpty || actions.count == 1 else {
+            throw ADGroupActionError.actionCountTooSmall
+        }
+        
+        self.actions = actions
+        self.showsSeparators = showsSeparators
+        self.separatorColor = separatorColor
         super.init()
     }
     
-    // MARK: - static func
-    static func groupActionWithActions(actions: [ADAlertAction]) -> ADAlertGroupAction {
-                
-        var condition: Bool = false
-        var message: String = ""
-        if actions.count == 0 {
-            condition = true
-            message = "Tried to initialize ADAlertGroupAction with less than one action."
-        }
-
-        if actions.count == 1 {
-            condition = true
-            message = "Tried to initialize ADAlertGroupAction with one action. Use ADAlertAction in this case."
-        }
-
-        for action in actions {
-            if action.isKind(of: ADAlertAction.classForCoder()) == false {
-                condition = true
-                message = "Tried to initialize ADAlertGroupAction with objects of types other than ADAlertAction."
-            }
-        }
-
-        if condition == true, message.count > 0 {
-            precondition(condition, message)
-        }
-        
-        let groupAction: ADAlertGroupAction = ADAlertGroupAction()
-        groupAction.actions = actions
-        
-        // FIXME: NSException
-        return groupAction
+    private override init(title: String? = nil, image: UIImage? = nil, style: ADActionStyle = .default,
+                          configuration: ADAlertActionConfiguration? = nil,
+                          actionHandler: ADAlertActionHandler? = nil) {
+        self.actions = []
+        super.init()
     }
-    
-    // MARK: - override func
-    override public func loadView() -> UIView {
+}
+
+extension ADAlertGroupAction {
+
+    override func loadView() -> UIView {
         
         let view: UIView = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -90,10 +76,17 @@ class ADAlertGroupAction: ADAlertAction {
         actionButtonStackView?.distribution = UIStackView.Distribution.fillEqually
         self.actionButtonStackView?.layoutIfNeeded()
 
-        for action: ADAlertAction in self.actions! {
-            self.actionButtonStackView!.addArrangedSubview(action.loadView())
+        for action in self.actions {
+            self.actionButtonStackView!.addArrangedSubview(action.view)
         }
-
+        // TODO: 实现分割线
+        
+        return view
+    }
+    
+    private var seperatorView: UIView {
+        let view = UIView()
+        view.backgroundColor = self.separatorColor
         return view
     }
     

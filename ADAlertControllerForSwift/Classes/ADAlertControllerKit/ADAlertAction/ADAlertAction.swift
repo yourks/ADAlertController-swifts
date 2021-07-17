@@ -7,127 +7,103 @@
 
 import UIKit
 
-// 按钮点击回调
-typealias ADAlertActionHandler = (_ alertAction: ADAlertAction) -> Void
+/// 按钮点击回调
+public typealias ADAlertActionHandler = (ADAlertAction) -> Void
 
-class ADAlertAction: NSObject {
+/// 警告框按钮
+public class ADAlertAction {
 
-    // MARK: - proprety/pubilc
+    // MARK: - pubilc
     
-    // 用于按钮点击后销毁vc
-    public var viewController: UIViewController?
-
-    // 按钮能否点击
-    public var enabled: Bool? {
+    /// 标题
+    public let title: String?
+    
+    /// 图片
+    public let image: UIImage?
+    
+    /// 按钮点击回调
+    public let actionHandler: ADAlertActionHandler?
+    
+    /// 按钮类型默认 default
+    public let style: ADActionStyle
+    
+    /// 按钮配置
+    public let configuration: ADAlertActionConfiguration
+    
+    /// 按钮所在的alertController
+    public var alertController: UIViewController? {
+        return _alertController
+    }
+    
+    /// 按钮能否点击
+    public var enabled: Bool = true {
         didSet {
-            self.button?.isEnabled = enabled ?? true
+            self._button?.isEnabled = enabled
         }
     }
-
-    // 按钮
-    public var button: UIButton?
     
-    // MARK: - proprety/private
+    // MARK: - private
+    weak var _alertController: UIViewController?
+    
+    // 按钮
+    private var _button: UIButton?
+    
+    public var view: UIView {
+        return _view
+    }
+    
+    lazy var _view: UIView = {
+        return self.loadView()
+    }()
     
     // 父视图 ADAlertControllerViewProtocol
-    private var _mainView: ADAlertControllerViewProtocol?
+//    private var _mainView: ADAlertControllerViewProtocol?
 
-    // 按钮点击回调
-    private var _handler: ADAlertActionHandler?
-    
-    // title
-    private var _title: String?
-    
-    // message
-    private var _image: UIImage?
-    
-    // 按钮类型默认 ADActionStyleDefault
-    private var _style: ADActionStyle?
-    
-    // 按钮配置
-    private var _configuration: ADAlertActionConfiguration?
-    
 
-    // MARK: - init
-    internal override init() {
-        super.init()
+    // MARK: - life cycle
+    deinit {
+        print("\(self) deinit")
     }
     
-
-    // MARK: - init static 类方法
-    static func actionWithTitle(_ title: String, _ actionStyle: ADActionStyle, complete alertActionHandler: @escaping ADAlertActionHandler ) -> ADAlertAction {
+    /// 初始化方法
+    /// - Parameters:
+    ///   - title: 标题
+    ///   - image: 图片
+    ///   - style: 样式风格
+    ///   - actionHandler: 点击回调
+    ///   - configuration: 按钮UI配置,包括字体,文字颜色
+    public init(title: String? = nil, image: UIImage? = nil, style: ADActionStyle = .default,
+                configuration: ADAlertActionConfiguration? = nil,
+                actionHandler: ADAlertActionHandler? = nil) {
         
-        let action: ADAlertAction = ADAlertAction.actionWithTitleFull(title, nil, ADActionStyle.default, complete: alertActionHandler, configuration: ADAlertActionConfiguration.defaultConfigurationWithActionStyle(style: actionStyle))
-
-        return action
+        self.title = title
+        self.image = image
+        self.style = style
+        self.actionHandler = actionHandler
+        self.configuration = configuration ?? ADAlertActionConfiguration(style: style)
     }
-    
-    static func actionWithTitle(_ image: UIImage, _ actionStyle: ADActionStyle, complete alertActionHandler: @escaping ADAlertActionHandler ) -> ADAlertAction {
-        
-        let action: ADAlertAction = ADAlertAction.actionWithTitleFull(nil, image, ADActionStyle.default, complete: alertActionHandler, configuration: ADAlertActionConfiguration.defaultConfigurationWithActionStyle(style: actionStyle))
+}
 
-        return action
-    }
+extension ADAlertAction {
 
-    static func actionWithTitleFull(_ title: String?, _ image: UIImage?, _ style: ADActionStyle, complete alertActionHandler: @escaping ADAlertActionHandler, configuration: ADAlertActionConfiguration?) -> ADAlertAction {
+    @objc func loadView() -> UIView {
+        let actionBtn: ADAlertButton = ADAlertButton(title: title, image: image)
+        actionBtn.addTarget(self, action: #selector(actionTapped(sender:)), for: .touchUpInside)
         
-        let action: ADAlertAction = ADAlertAction()
-        action._title = title 
-        action._image = image 
-        action._style = style
-        
-        action._handler = alertActionHandler
-        
-        action._configuration = configuration ?? ADAlertActionConfiguration.defaultConfigurationWithActionStyle(style: style)
-        
-        return action
-    }
-    
-    // MARK: - public func
-    public func handlerDismissBlock(action: ADAlertAction) {
-        // swiftlint:disable force_cast
-        ADAlertController.hidenAlertVC(viewController: action.viewController as! ADAlertController)
-        // swiftlint:enable force_cast
-    }
+        actionBtn.setTitleColor(configuration.disabledTitleColor, for: .disabled)
+        actionBtn.setTitleColor(configuration.titleColor, for: .normal)
+        actionBtn.setTitleColor(configuration.titleColor, for: .highlighted)
+        actionBtn.titleLabel?.font = configuration.titleFont
 
-    public func loadView() -> UIView {
-        let actionBtn: ADAlertButton = ADAlertButton(type: UIButton.ButtonType.custom)
-        actionBtn.addTarget(self, action: #selector(actionTapped(sender:)), for: UIControl.Event.touchUpInside)
+        self._button = actionBtn
         
-        actionBtn.setBackgroundImage(UIImage.ad_imageWithTheColor(color: UIColor.white.withAlphaComponent(0)), for: UIControl.State.normal)
-        actionBtn.setBackgroundImage(UIImage.ad_imageWithTheColor(color: UIColor.white.withAlphaComponent(0)), for: UIControl.State.highlighted)
-
-        if _image != nil&&_title != nil {
-            actionBtn.setImage(_image, for: UIControl.State.normal)
-            actionBtn.setTitle(_title, for: UIControl.State.normal)
-            actionBtn.setImagePosition(postion: .top, spacing: 5)
-        }
-        if _image != nil&&_title == nil {
-            actionBtn.setImage(_image, for: UIControl.State.normal)
-        }
-        if _image == nil&&_title != nil {
-            actionBtn.setTitle(_title, for: UIControl.State.normal)
-        }
-
-        let buttonConfiguration: ADAlertActionConfiguration = _configuration!
-        
-        actionBtn.setTitleColor(buttonConfiguration.disabledTitleColor, for: UIControl.State.disabled)
-        actionBtn.setTitleColor(buttonConfiguration.titleColor, for: UIControl.State.normal)
-        actionBtn.setTitleColor(buttonConfiguration.titleColor, for: UIControl.State.highlighted)
-        if buttonConfiguration.titleFont != nil {
-            actionBtn.titleLabel?.font = buttonConfiguration.titleFont
-        }
-        
-        self.button = actionBtn
-
         return actionBtn
     }
     
-    
     // MARK: - @objc func
-    @objc func actionTapped(sender: UIButton) {
-        _handler?(self)
-        self.handlerDismissBlock(action: self)
+    @objc private func actionTapped(sender: UIButton) {
+        actionHandler?(self)
+        ADAlertController.hidenAlertVC(viewController: alertController)
     }
 }
 
