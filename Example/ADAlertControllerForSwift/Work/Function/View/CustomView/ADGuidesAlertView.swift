@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import ADAlertControllerForSwift
 
 // 这里声明代理方法不对
-public protocol ADGuidesAlertViewDelegate: AnyObject {
+protocol ADGuidesAlertViewDelegate: AnyObject {
     func advertView(_ view: ADGuidesAlertView, didSelectItemAt index: Int)
 }
 
@@ -21,7 +22,7 @@ xcode中快速注释的方法:
 
  */
 
-public class ADGuidesAlertView: UIView, UIScrollViewDelegate {
+class ADGuidesAlertView: UIView, UIScrollViewDelegate {
 
     // MARK: - propert/public
     /**
@@ -79,7 +80,7 @@ public class ADGuidesAlertView: UIView, UIScrollViewDelegate {
     /**
      closeBtn
      */
-    private var closeBtn: ADAlertButton?
+    private var closeBtn: UIButton?
 
     /**
      scrollView
@@ -139,7 +140,7 @@ public class ADGuidesAlertView: UIView, UIScrollViewDelegate {
         containerView?.addSubview(pageControl!)
 
         // closeBtn
-        closeBtn = ADAlertButton(type: UIButton.ButtonType.custom)
+        closeBtn = UIButton(type: UIButton.ButtonType.custom)
         closeBtn?.addTarget(self, action: #selector(onCloseAction(sender:)), for: UIControl.Event.touchUpInside)
         closeBtn?.setBackgroundImage(UIImage.init(named: "close@3x"), for: UIControl.State.normal)
         closeBtn?.setBackgroundImage(UIImage.init(named: "close@3x"), for: UIControl.State.highlighted)
