@@ -1,16 +1,28 @@
 PODS:
-  - ADAlertControllerForSwift (0.1.0)
+  - ADAlertControllerForSwift (1.0.2):
+    - SnapKit
+  - SnapKit (4.2.0)
+  - SwiftLint (0.43.1)
 
 DEPENDENCIES:
   - ADAlertControllerForSwift (from `../`)
+  - SnapKit
+  - SwiftLint
+
+SPEC REPOS:
+  trunk:
+    - SnapKit
+    - SwiftLint
 
 EXTERNAL SOURCES:
   ADAlertControllerForSwift:
     :path: "../"
 
 SPEC CHECKSUMS:
-  ADAlertControllerForSwift: dd69546f4c2f0509a131da3b4f8f913a3d11805e
+  ADAlertControllerForSwift: 5477df0065779b82e374c4a8200e49f88a71c8f1
+  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+  SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
 
-PODFILE CHECKSUM: fbb9160948ceb7d5dab270b2900dbdc285e66258
+PODFILE CHECKSUM: ea8a305bd1dc0aebda834ea2724addf9584beca5
 
 COCOAPODS: 1.10.1
