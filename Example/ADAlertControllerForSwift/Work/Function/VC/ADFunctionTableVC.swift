@@ -321,18 +321,19 @@ extension ADFunctionTableVC {
             print("短信")
         }
 
-        var actions: [ADAlertAction] = []
-        if let group = try? ADAlertGroupAction(actions: [action1, action2, action3, action4, action5]) {
-            actions.append(group)
+        if let group = try? ADAlertGroupAction(actions: [action1, action2, action3, action2, action4]) {
+            let config = ADAlertControllerConfiguration(preferredStyle: ADAlertControllerStyle.alert)
+            config.showsSeparators = true
+
+//            let alertView: ADAlertController = ADAlertController(configuration: config, title: "这里是标题", message: nil, actions: [group])
+//            let alertView: ADAlertController = ADAlertController(configuration: config, title: "这里是标题", message: nil, actions: [action5, action4, action3])
+
+//            let alertView: ADAlertController = ADAlertController(configuration: config, title: "这里是标题", message: nil, actions: [ action4, action5, action1, group] )
+            
+            let alertView: ADAlertController = ADAlertController(configuration: config, title: "这里是标题", message: nil, actions: [group, action4, action5, action1] )
+
+            alertView.show()
         }
-        actions.append(contentsOf: [action5, action5])
-        
-        let config = ADAlertControllerConfiguration(preferredStyle: ADAlertControllerStyle.alert)
-        config.showsSeparators = true
-
-        let alertView: ADAlertController = ADAlertController(configuration: config, title: "这里是标题", message: nil, actions: actions)
-
-        alertView.show()
     }
 
     @objc func alertStyleImageAction() {
@@ -681,64 +682,64 @@ extension ADFunctionTableVC {
     
     @objc func prorityQueueSample() {
 
-//        for index: NSInteger in 0..<10 {
-//
-//            let style: ADAlertControllerStyle = (index % 2 == 0) ?ADAlertControllerStyle.alert : ADAlertControllerStyle.sheet
-//
-//            var alertPrority: ADAlertPriority = ADAlertPriorityDefault
-//
-//            if index % 3 == 0 {
-//                alertPrority = ADAlertPriorityDefault
-//            } else if index % 3 == 1 {
-//                alertPrority = ADAlertPriorityHight
-//            } else {
-//                alertPrority = ADAlertPriorityRequire
-//            }
-//
-//            var aDescription: String = "Default"
-//            switch alertPrority {
-//            case ADAlertPriorityDefault:
-//                aDescription = "Default"
-//            case ADAlertPriorityHight:
-//                aDescription = "Hight"
-//            case ADAlertPriorityRequire:
-//                aDescription = "Require"
-//            default:
-//                aDescription = "Unknow"
-//            }
-//
-//            let title: String = String(format: "当前是第%d个插入的队列的,优先级是%@", index+1, aDescription)
-//            let config: ADAlertControllerConfiguration = ADAlertControllerConfiguration(preferredStyle: style)
-//            config.hidenWhenTapBackground = true
-//
-//            switch style {
-//            case ADAlertControllerStyle.alert:
-//                let cancelAction1: ADAlertAction = ADAlertAction(title: "添加", style: .default) { (_) in
-//                    print("点击了取消")
-//                }
-//                let cancelAction2: ADAlertAction = ADAlertAction(title: "编辑", style: .default) { (_) in
-//                    print("点击了取消")
-//                }
-//                let config: ADAlertControllerConfiguration = ADAlertControllerConfiguration(preferredStyle: ADAlertControllerStyle.alert)
-//                config.showsSeparators = true
-//                let alertView: ADAlertController = ADAlertController(configuration: config, title: title, message: nil, actions: [cancelAction1, cancelAction2])
-//                alertView.alertPriority = alertPrority
-//                alertView.enqueue()
-//
-//            case ADAlertControllerStyle.sheet:
-//                // swiftlint:disable no_fallthrough_only
-//                fallthrough
-//                // swiftlint:enable type_body_length
-//            case ADAlertControllerStyle.actionSheet:
-//
-//                let alertView: ADAlertController = ADAlertController(configuration: config, title: title, message: nil, actions: nil)
-//                let cancelAction: ADAlertAction = ADAlertAction(title: "取消", style: .sheetCancel) { (_) in
-//                    print("点击了取消")
-//                }
-//                alertView.addActionSheetCancelAction(cancelAction: cancelAction)
-//                alertView.enqueue()
-//            }
-//        }
+        for index: NSInteger in 0..<10 {
+
+            let style: ADAlertControllerStyle = (index % 2 == 0) ?ADAlertControllerStyle.alert : ADAlertControllerStyle.sheet
+
+            var alertPrority: ADAlertPriority = ADAlertPriorityDefault
+
+            if index % 3 == 0 {
+                alertPrority = ADAlertPriorityDefault
+            } else if index % 3 == 1 {
+                alertPrority = ADAlertPriorityHight
+            } else {
+                alertPrority = ADAlertPriorityRequire
+            }
+
+            var aDescription: String = "Default"
+            switch alertPrority {
+            case ADAlertPriorityDefault:
+                aDescription = "Default"
+            case ADAlertPriorityHight:
+                aDescription = "Hight"
+            case ADAlertPriorityRequire:
+                aDescription = "Require"
+            default:
+                aDescription = "Unknow"
+            }
+
+            let title: String = String(format: "当前是第%d个插入的队列的,优先级是%@", index+1, aDescription)
+            let config: ADAlertControllerConfiguration = ADAlertControllerConfiguration(preferredStyle: style)
+            config.hidenWhenTapBackground = true
+
+            switch style {
+            case ADAlertControllerStyle.alert:
+                let cancelAction1: ADAlertAction = ADAlertAction(title: "添加", style: .default) { (_) in
+                    print("点击了取消")
+                }
+                let cancelAction2: ADAlertAction = ADAlertAction(title: "编辑", style: .default) { (_) in
+                    print("点击了取消")
+                }
+                let config: ADAlertControllerConfiguration = ADAlertControllerConfiguration(preferredStyle: ADAlertControllerStyle.alert)
+                config.showsSeparators = true
+                let alertView: ADAlertController = ADAlertController(configuration: config, title: title, message: nil, actions: [cancelAction1, cancelAction2])
+                alertView.alertPriority = alertPrority
+                alertView.enqueue()
+
+            case ADAlertControllerStyle.sheet:
+                // swiftlint:disable no_fallthrough_only
+                fallthrough
+                // swiftlint:enable type_body_length
+            case ADAlertControllerStyle.actionSheet:
+
+                let alertView: ADAlertController = ADAlertController(configuration: config, title: title, message: nil, actions: nil)
+                let cancelAction: ADAlertAction = ADAlertAction(title: "取消", style: .sheetCancel) { (_) in
+                    print("点击了取消")
+                }
+                alertView.addActionSheetCancelAction(cancelAction: cancelAction)
+                alertView.enqueue()
+            }
+        }
 
     }
 

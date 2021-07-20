@@ -178,7 +178,9 @@ class ADActionSheetView: UIView, ADAlertControllerViewProtocol {
             bottomactionButtonStackView?.alignment = UIStackView.Alignment.fill
             bottomactionButtonStackView?.distribution = UIStackView.Distribution.fillEqually
 
-            bottomView?.snp.updateConstraints { (constraintMaker) in
+            bottomView?.snp.remakeConstraints { (constraintMaker) in
+                constraintMaker.left.equalToSuperview().offset(0)
+                constraintMaker.right.equalToSuperview().offset(0)
                 constraintMaker.top.equalTo(topView!.snp_bottom).offset(5)
                 constraintMaker.height.greaterThanOrEqualTo(actionButtonContainerViewHeight)
                 constraintMaker.bottom.equalToSuperview().offset(-15)

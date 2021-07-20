@@ -4,7 +4,7 @@ platform :ios, '9.0'
 
 target 'ADAlertControllerForSwift_Example' do
   pod 'ADAlertControllerForSwift', :path => '../'
-  pod 'SnapKit'
+  pod 'SnapKit', :inhibit_warnings => true
   pod 'SwiftLint', :configurations => ['Debug']
 
   target 'ADAlertControllerForSwift_Tests' do

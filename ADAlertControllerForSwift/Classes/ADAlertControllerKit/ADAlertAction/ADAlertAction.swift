@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 /// 按钮点击回调
 public typealias ADAlertActionHandler = (ADAlertAction) -> Void
 
@@ -43,12 +44,13 @@ public class ADAlertAction {
     }
     
     // MARK: - private
-    weak var _alertController: UIViewController?
+    public weak var _alertController: UIViewController?
     
     // 按钮
     private var _button: UIButton?
     
     public var view: UIView {
+                
         return _view
     }
     
@@ -58,7 +60,6 @@ public class ADAlertAction {
     
     // 父视图 ADAlertControllerViewProtocol
 //    private var _mainView: ADAlertControllerViewProtocol?
-
 
     // MARK: - life cycle
     deinit {
@@ -82,6 +83,17 @@ public class ADAlertAction {
         self.actionHandler = actionHandler
         self.configuration = configuration ?? ADAlertActionConfiguration(style: style)
     }
+        
+    public func checkBtn() -> ADAlertAction? {
+        if self._button != nil {
+            let sameAction: ADAlertAction = ADAlertAction(title: self.title, image: self.image, style: self.style, configuration: self.configuration, actionHandler: self.actionHandler)
+            return sameAction
+        }
+        
+        return nil
+    }
+
+    
 }
 
 extension ADAlertAction {

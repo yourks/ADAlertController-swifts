@@ -163,12 +163,18 @@ public final class ADAlertController: UIViewController, AlertStyleTransitionBeha
         self.mainView!.contentViewHeight = contentViewHeight
         self.mainView!.contentView = contentView
 
+
         if let actions = self.actions {
-            for action in actions {
+            for var action in actions {
                 if let groupAction = action as? ADAlertGroupAction {
                     groupAction.separatorColor = self.configuration?.separatorColor
                     groupAction.showsSeparators = self.configuration?.showsSeparators
                 }
+                    
+                if let sameAction = action.checkBtn() {
+                    action = sameAction;
+                }
+                
                 buttons.append(action.view)
                 action._alertController = self
             }
@@ -179,6 +185,7 @@ public final class ADAlertController: UIViewController, AlertStyleTransitionBeha
         self.mainView?.title = self.alertTitle
         self.mainView?.message = self.message
         self.mainView?.textFields = self.textFields
+
                 
         // alert 点击事件
         if self.configuration?.preferredStyle == .alert {

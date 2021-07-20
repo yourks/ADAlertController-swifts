@@ -23,11 +23,11 @@ public class ADAlertGroupAction: ADAlertAction {
     /// 分割线是否显示
     public var showsSeparators: Bool?
     
-    public let actions: [ADAlertAction]
+    public var actions: [ADAlertAction]
     
     private var actionButtonStackView: UIStackView?
 
-    override var _alertController: UIViewController? {
+    public override var _alertController: UIViewController? {
         didSet {
             for action in self.actions {
                 action._alertController = _alertController
@@ -38,7 +38,7 @@ public class ADAlertGroupAction: ADAlertAction {
     // MARK: - life cycle
     public init(actions: [ADAlertAction], showsSeparators: Bool = false, separatorColor: UIColor? = nil) throws {
                 
-        guard !actions.isEmpty || actions.count == 1 else {
+        if actions.count == 0 || actions.count == 1 {
             throw ADGroupActionError.actionCountTooSmall
         }
         
@@ -76,7 +76,11 @@ extension ADAlertGroupAction {
         actionButtonStackView?.distribution = UIStackView.Distribution.fillEqually
         self.actionButtonStackView?.layoutIfNeeded()
 
-        for action in self.actions {
+        for var action in self.actions {
+            if let sameAction = action.checkBtn() {
+                action = sameAction;
+            }
+            
             self.actionButtonStackView!.addArrangedSubview(action.view)
         }
         // TODO: 实现分割线
