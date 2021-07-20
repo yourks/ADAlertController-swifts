@@ -165,16 +165,12 @@ public final class ADAlertController: UIViewController, AlertStyleTransitionBeha
 
 
         if let actions = self.actions {
-            for var action in actions {
+            for action in actions {
                 if let groupAction = action as? ADAlertGroupAction {
                     groupAction.separatorColor = self.configuration?.separatorColor
                     groupAction.showsSeparators = self.configuration?.showsSeparators
                 }
-                    
-                if let sameAction = action.checkBtn() {
-                    action = sameAction;
-                }
-                
+                                    
                 buttons.append(action.view)
                 action._alertController = self
             }

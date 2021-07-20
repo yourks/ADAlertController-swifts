@@ -23,7 +23,7 @@ public class ADAlertGroupAction: ADAlertAction {
     /// 分割线是否显示
     public var showsSeparators: Bool?
     
-    public var actions: [ADAlertAction]
+    public let actions: [ADAlertAction]
     
     private var actionButtonStackView: UIStackView?
 
@@ -76,11 +76,7 @@ extension ADAlertGroupAction {
         actionButtonStackView?.distribution = UIStackView.Distribution.fillEqually
         self.actionButtonStackView?.layoutIfNeeded()
 
-        for var action in self.actions {
-            if let sameAction = action.checkBtn() {
-                action = sameAction;
-            }
-            
+        for action in self.actions {            
             self.actionButtonStackView!.addArrangedSubview(action.view)
         }
         // TODO: 实现分割线
