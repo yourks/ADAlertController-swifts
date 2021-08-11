@@ -65,7 +65,8 @@ public final class ADAlertController: UIViewController, AlertStyleTransitionBeha
     // ADAlertControllerViewProtocol ADAlertViewSheetStyleTransition需要
     var mainView: ADAlertControllerViewProtocol?
 
-    
+    public var autoHidenWhenTargetViewControllerDisappear: Bool?
+
     // MARK: - propert/private
     // ADAlertWindow
     private(set) var alertWindow: ADAlertWindow?
@@ -87,18 +88,18 @@ public final class ADAlertController: UIViewController, AlertStyleTransitionBeha
     var didDismissBlock: AlertControllerDidDismissAction?
 
     // 当 alertController 隐藏时是否从优先级队列中移除,默认 YES,仅在显示时被其他高优先级覆盖时才置为 NO
-    private var deleteWhenHiden: Bool = true
+    public var deleteWhenHiden: Bool = true
     
     // 判断是否能显示,若设置了targetViewController并且当前最顶层控制器不为targetViewController时,返回  NO,否则默认返回 YES
-    private var canShow: Bool = true
+//    private var canShow: Bool = true
 
     // 是否正在显示,仅在页面完全显示时才会为 YES,其余情况为 NO
-    private var isShow: Bool = true
+    public var isShow: Bool = true
     
     /**
      是否不显示,因为在显示时是有个异步的过程,如果在还没显示时,后面又进来了一个更高优先级的警告框,那么需要将这个置为 YES,后面就不会再弹出当前警告框了,并会执行didDismissBlock
      */
-    private var donotShow: Bool = true
+    public var donotShow: Bool = true
 
 
     // MARK: - propert/ADAlertViewAlertStyleTransitionProtocol
@@ -137,8 +138,9 @@ public final class ADAlertController: UIViewController, AlertStyleTransitionBeha
         self.transitioningDelegate = self
         
         // 删除后隐藏
-//        self.deleteWhenHiden = true
-        
+        self.deleteWhenHiden = true
+        autoHidenWhenTargetViewControllerDisappear = true
+
         // 当targetViewController有值,且 alertController已经显示了,若targetViewController即将消失了,当前 alertController 是否要自动隐藏,默认 YES
         self.hidenWhenTargetViewControllerDisappear = true
 
@@ -308,6 +310,8 @@ extension ADAlertController: ADAlertControllerBaseProtocol {
     public func show() {
         let alertWindow =  ADAlertWindow.window()
         self.alertWindow = alertWindow
+        //每次显示时,重置为 YES
+        self.deleteWhenHiden = true;
         alertWindow.presentViewController(viewController: self) {}
     }
     
@@ -336,6 +340,24 @@ extension ADAlertController {
             }
         } else {
             self.clearUp()
+        }
+    }
+}
+
+// MARK: - extension : ADBlackListController
+
+extension ADAlertController {
+
+    private struct AssociatedKeys {
+        static var blackClassList: Void?
+    }
+
+    static public var blackClassList: NSArray? {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.blackClassList) as? NSArray
+        }
+        set {
+            objc_setAssociatedObject(self, &AssociatedKeys.blackClassList, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 }

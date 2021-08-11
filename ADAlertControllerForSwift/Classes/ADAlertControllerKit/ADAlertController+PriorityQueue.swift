@@ -14,17 +14,17 @@ extension ADAlertController: ADAlertControllerPriorityQueueProtocol {
         static var hidenWhenTargetViewControllerDisappear: Void?
     }
         
-    public var alertPriority: ADAlertPriority {
+    public var alertPriority: ADAlertPriority? {
         get {
             let alertPriority = objc_getAssociatedObject(self, &AssociatedKeys.alertPriority) as? ADAlertPriority
             return alertPriority ?? ADAlertPriorityDefault
         }
         set {
-            objc_setAssociatedObject(self, &AssociatedKeys.alertPriority, newValue, .OBJC_ASSOCIATION_ASSIGN)
+            objc_setAssociatedObject(self, &AssociatedKeys.alertPriority, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
-    public var autoHidenWhenInsertSamePriority: Bool {
+    public var autoHidenWhenInsertSamePriority: Bool? {
         get {
             return objc_getAssociatedObject(self, &AssociatedKeys.autoHidenWhenInsertSamePriority) as? Bool ?? false
         }
@@ -42,7 +42,7 @@ extension ADAlertController: ADAlertControllerPriorityQueueProtocol {
         }
     }
     
-    public var hidenWhenTargetViewControllerDisappear: Bool {
+    public var hidenWhenTargetViewControllerDisappear: Bool? {
         get {
             return objc_getAssociatedObject(self, &AssociatedKeys.hidenWhenTargetViewControllerDisappear) as? Bool ?? false
         }
@@ -52,11 +52,27 @@ extension ADAlertController: ADAlertControllerPriorityQueueProtocol {
     }
 
     public func enqueue() {
-        
+        ADAlertControllerPriorityQueue.inset(self)
     }
     
     public func cleanQueueAllObject() {
-        
+        ADAlertControllerPriorityQueue.cleanQueueAllObject()
     }
    
 }
+
+extension ADAlertController {
+    // step8
+    func canShow() -> Bool {
+        let topVisibleVC: UIViewController = UIViewController.ad_topVisibleViewController()
+        if self.targetViewController != nil {
+            return topVisibleVC == self.targetViewController;
+        }
+        return true
+    }
+    
+//    func isShow() -> Bool {
+//        return !!self.presentingViewController
+//    }
+}
+
