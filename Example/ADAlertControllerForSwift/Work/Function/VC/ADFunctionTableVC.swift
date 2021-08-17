@@ -396,7 +396,7 @@ extension ADFunctionTableVC {
             textField.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
             textField.delegate = self
         }
-        
+
         alertView .addTextFieldWithConfigurationHandler { (textField) in
             textField.placeholder = "请输入密码"
             textField.font = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
@@ -684,7 +684,8 @@ extension ADFunctionTableVC {
 
         for index: NSInteger in 0..<10 {
 
-            let style: ADAlertControllerStyle = (index % 2 == 0) ?ADAlertControllerStyle.alert : ADAlertControllerStyle.sheet
+            let style: ADAlertControllerStyle = (index % 2 == 0) ?ADAlertControllerStyle.alert : ADAlertControllerStyle.actionSheet
+//            let style: ADAlertControllerStyle = ADAlertControllerStyle.alert
 
             var alertPrority: ADAlertPriority = ADAlertPriorityDefault
 
@@ -696,17 +697,7 @@ extension ADFunctionTableVC {
                 alertPrority = ADAlertPriorityRequire
             }
 
-            var aDescription: String = "Default"
-            switch alertPrority {
-            case ADAlertPriorityDefault:
-                aDescription = "Default"
-            case ADAlertPriorityHight:
-                aDescription = "Hight"
-            case ADAlertPriorityRequire:
-                aDescription = "Require"
-            default:
-                aDescription = "Unknow"
-            }
+            let aDescription: String = self.getADAlertPriority(alertPrority: alertPrority)
 
             let title: String = String(format: "当前是第%d个插入的队列的,优先级是%@", index+1, aDescription)
             let config: ADAlertControllerConfiguration = ADAlertControllerConfiguration(preferredStyle: style)
@@ -731,18 +722,31 @@ extension ADFunctionTableVC {
                 fallthrough
                 // swiftlint:enable type_body_length
             case ADAlertControllerStyle.actionSheet:
-
+                
                 let alertView: ADAlertController = ADAlertController(configuration: config, title: title, message: nil, actions: nil)
                 let cancelAction: ADAlertAction = ADAlertAction(title: "取消", style: .sheetCancel) { (_) in
                     print("点击了取消")
                 }
                 alertView.addActionSheetCancelAction(cancelAction: cancelAction)
+                alertView.alertPriority = alertPrority
                 alertView.enqueue()
             }
         }
 
     }
 
+    func getADAlertPriority(alertPrority: ADAlertPriority) -> String {
+        switch alertPrority {
+        case ADAlertPriorityDefault:
+            return  "Default"
+        case ADAlertPriorityHight:
+            return  "Hight"
+        case ADAlertPriorityRequire:
+            return  "Require"
+        default:
+            return  "Unknow"
+        }
+    }
     
     @objc func targetViewControllerSample() {
         let sureAction: ADAlertAction = ADAlertAction(title: "确定", style: .default) { (_) in

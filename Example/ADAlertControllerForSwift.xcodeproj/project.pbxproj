@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1866867026A7A7F400DB9F45 /* ADClassThrowsConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1866866F26A7A7F400DB9F45 /* ADClassThrowsConfig.swift */; };
 		18BE07D726A1829B00D297AC /* ADClassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BE07C426A1829B00D297AC /* ADClassVC.swift */; };
 		18BE07D826A1829B00D297AC /* ADNavVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BE07C626A1829B00D297AC /* ADNavVC.swift */; };
 		18BE07D926A1829B00D297AC /* ADTabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BE07C726A1829B00D297AC /* ADTabbarVC.swift */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1866866F26A7A7F400DB9F45 /* ADClassThrowsConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADClassThrowsConfig.swift; sourceTree = "<group>"; };
 		18BE07C426A1829B00D297AC /* ADClassVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADClassVC.swift; sourceTree = "<group>"; };
 		18BE07C626A1829B00D297AC /* ADNavVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADNavVC.swift; sourceTree = "<group>"; };
 		18BE07C726A1829B00D297AC /* ADTabbarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ADTabbarVC.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				18BE07C426A1829B00D297AC /* ADClassVC.swift */,
+				1866866F26A7A7F400DB9F45 /* ADClassThrowsConfig.swift */,
 			);
 			path = ClassVC;
 			sourceTree = "<group>";
@@ -490,6 +493,7 @@
 				18BE07DF26A1829B00D297AC /* ADBaseTabBarVC.swift in Sources */,
 				18BE07DE26A1829B00D297AC /* ADBaseView.swift in Sources */,
 				18BE07E226A1829B00D297AC /* ADBaseModel.swift in Sources */,
+				1866867026A7A7F400DB9F45 /* ADClassThrowsConfig.swift in Sources */,
 				18BE07D826A1829B00D297AC /* ADNavVC.swift in Sources */,
 				18BE07E026A1829B00D297AC /* ADBaseNavVC.swift in Sources */,
 				18BE07DC26A1829B00D297AC /* ADFunctionTableCell.swift in Sources */,
